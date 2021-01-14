@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+const Duration headlineAnimationDuration = const Duration(milliseconds: 400);
+const List<Color> headlineTextColors = [Colors.blue, Colors.deepOrange];
+
 class Headline extends ImplicitlyAnimatedWidget {
   final String text;
   final int index;
@@ -7,14 +11,14 @@ class Headline extends ImplicitlyAnimatedWidget {
   Color get targetColor => index == 0 ? Colors.red : Colors.blue;
 
   Headline({@required this.text, @required this.index, Key key})
-      : super(key: key, duration: const Duration(seconds: 1));
+      : super(key: key, duration: headlineAnimationDuration);
 
   @override
   _HeadlineState createState() => _HeadlineState();
 }
 
 class _HeadlineState extends AnimatedWidgetBaseState<Headline> {
-  _GhostFadeTween _colorTween;
+  GhostFadeTween _colorTween;
   _SwitchStringTween _switchStringTween;
 
   @override
@@ -30,7 +34,7 @@ class _HeadlineState extends AnimatedWidgetBaseState<Headline> {
     _colorTween = visitor(
       _colorTween,
       widget.targetColor,
-      (color) => _GhostFadeTween(begin: color),
+      (color) => GhostFadeTween(begin: color),
     );
 
     _switchStringTween = visitor(_switchStringTween, widget.text,
@@ -38,16 +42,17 @@ class _HeadlineState extends AnimatedWidgetBaseState<Headline> {
   }
 }
 
-class _GhostFadeTween extends Tween<Color> {
+@visibleForTesting
+class GhostFadeTween extends Tween<Color> {
   final Color middle = Colors.white;
 
-  _GhostFadeTween({Color begin, Color end}) : super(begin: begin, end: end);
+  GhostFadeTween({Color begin, Color end}) : super(begin: begin, end: end);
 
   Color lerp(double t) {
     if (t < 0.5) {
       return Color.lerp(begin, middle, t * 2);
     } else {
-      return Color.lerp(middle, end, t * 2);
+      return Color.lerp(middle, end, (t - 0.5) * 2);
     }
   }
 }
