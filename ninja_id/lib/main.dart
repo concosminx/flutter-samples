@@ -18,7 +18,7 @@ class _NinjaCardState extends State<NinjaCard> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-          title:Text('Ninha ID Card'),
+          title:Text('Ninja ID Card'),
           centerTitle: true,
           backgroundColor: Colors.grey[850],
           elevation: 0.0,
@@ -66,7 +66,7 @@ class _NinjaCardState extends State<NinjaCard> {
             ),
             SizedBox(height: 30),
             Text(
-              'CURRENT NINA LEVEL',
+              'CURRENT NINJA LEVEL',
               style: TextStyle(
                   color: Colors.grey,
                   letterSpacing: 2.0
