@@ -3,13 +3,17 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Dart
+name: Flutter build
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+defaults:
+ run:
+  working-directory: ./world_time
 
 jobs:
   build:
@@ -24,7 +28,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.7.7'
-      - run: cd world_time
       - run: flutter pub get
       - run: flutter build apk
       - run: flutter build appbundle
